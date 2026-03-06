@@ -1,0 +1,2030 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>С 8 Марта! 🌷</title>
+
+  <!-- Google Fonts: красивые шрифты для праздника -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Dancing+Script:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===================================================
+       ПЕРЕМЕННЫЕ CSS — основная цветовая палитра
+    =================================================== */
+    :root {
+      --pink-deep:    #e8678a;
+      --pink-mid:     #f4a0bc;
+      --pink-light:   #fce4ec;
+      --pink-pale:    #fff0f5;
+      --violet-deep:  #b57bee;
+      --violet-mid:   #d4a8f7;
+      --violet-light: #ede7fb;
+      --green-spring: #a8d5a2;
+      --green-light:  #d4edda;
+      --green-pale:   #f0faf0;
+      --white:        #ffffff;
+      --cream:        #fffaf8;
+      --text-dark:    #3d2b3d;
+      --text-mid:     #6e4b6e;
+      --text-light:   #a07aaF;
+      --gold:         #f5c842;
+      --shadow-soft:  0 8px 32px rgba(180,100,160,0.15);
+      --shadow-hover: 0 16px 48px rgba(180,100,160,0.28);
+    }
+
+    /* ===================================================
+       СБРОС И БАЗОВЫЕ СТИЛИ
+    =================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* Кастомный курсор — маленькое сердечко */
+    body { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M12 21C12 21 3 13.5 3 8a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 5.5-9 13-9 13z' fill='%23e8678a' stroke='%23fff' stroke-width='1.5'/%3E%3C/svg%3E") 12 12, pointer; }
+
+    /* ===================================================
+       ФОНОВЫЕ ЛЕТЯЩИЕ ЛЕПЕСТКИ (canvas слой)
+    =================================================== */
+    #petal-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ===================================================
+       КОНТЕЙНЕР
+    =================================================== */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===================================================
+       СЕКЦИЯ 1: HERO — главный экран
+    =================================================== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(
+        135deg,
+        #fff0f5 0%,
+        #fce4ec 20%,
+        #ede7fb 50%,
+        #fce4ec 80%,
+        #f0faf0 100%
+      );
+    }
+
+    /* Анимированный градиентный фон hero */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: -50%;
+      background: conic-gradient(
+        from 0deg at 50% 50%,
+        #fce4ec33 0deg,
+        #ede7fb44 60deg,
+        #d4edda33 120deg,
+        #fce4ec33 180deg,
+        #f4a0bc22 240deg,
+        #d4a8f733 300deg,
+        #fce4ec33 360deg
+      );
+      animation: rotateBg 20s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes rotateBg {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .hero-content {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      padding: 40px 20px;
+    }
+
+    /* Декоративная дата сверху */
+    .hero-date {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      color: var(--pink-deep);
+      letter-spacing: 0.15em;
+      opacity: 0;
+      animation: fadeSlideDown 1s ease forwards 0.3s;
+      margin-bottom: 12px;
+    }
+
+    /* Главный заголовок */
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 12vw, 8rem);
+      font-weight: 900;
+      line-height: 1.05;
+      background: linear-gradient(
+        135deg,
+        var(--pink-deep) 0%,
+        var(--violet-deep) 50%,
+        var(--pink-deep) 100%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation:
+        fadeSlideDown 1s ease forwards 0.5s,
+        shimmerText 4s linear infinite 1.5s;
+      opacity: 0;
+      text-shadow: none;
+      filter: drop-shadow(0 4px 12px rgba(232,103,138,0.3));
+    }
+
+    @keyframes shimmerText {
+      0%   { background-position: 0% center; }
+      100% { background-position: 200% center; }
+    }
+
+    /* Подзаголовок */
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.4rem, 4vw, 2.4rem);
+      font-style: italic;
+      color: var(--text-mid);
+      margin-top: 8px;
+      opacity: 0;
+      animation: fadeSlideDown 1s ease forwards 0.8s;
+    }
+
+    .hero-subtitle span {
+      color: var(--violet-deep);
+      font-weight: 600;
+    }
+
+    /* Разделитель с цветком */
+    .hero-divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 32px auto;
+      opacity: 0;
+      animation: fadeSlideDown 1s ease forwards 1s;
+    }
+
+    .hero-divider::before,
+    .hero-divider::after {
+      content: '';
+      width: 80px;
+      height: 1.5px;
+      background: linear-gradient(90deg, transparent, var(--pink-mid), transparent);
+    }
+
+    .hero-flower-icon {
+      font-size: 2rem;
+      animation: spinBounce 3s ease-in-out infinite;
+    }
+
+    @keyframes spinBounce {
+      0%, 100% { transform: rotate(0deg) scale(1); }
+      25%       { transform: rotate(15deg) scale(1.1); }
+      75%       { transform: rotate(-15deg) scale(1.1); }
+    }
+
+    /* Приветственный текст */
+    .hero-intro {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--text-mid);
+      max-width: 600px;
+      margin: 0 auto 36px;
+      line-height: 1.9;
+      opacity: 0;
+      animation: fadeSlideDown 1s ease forwards 1.2s;
+    }
+
+    /* Кнопка поздравления */
+    .btn-celebrate {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 42px;
+      background: linear-gradient(135deg, var(--pink-deep), var(--violet-deep));
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(232,103,138,0.4);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      animation: fadeSlideDown 1s ease forwards 1.4s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-celebrate::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: -60%;
+      width: 50%; height: 200%;
+      background: rgba(255,255,255,0.25);
+      transform: skewX(-20deg);
+      transition: left 0.5s ease;
+    }
+
+    .btn-celebrate:hover::before { left: 130%; }
+    .btn-celebrate:hover {
+      transform: translateY(-4px) scale(1.04);
+      box-shadow: 0 12px 36px rgba(232,103,138,0.5);
+    }
+
+    .btn-celebrate:active { transform: translateY(-1px) scale(1.01); }
+
+    /* Стрелка прокрутки вниз */
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 2s;
+      z-index: 2;
+    }
+
+    .scroll-hint span {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    .scroll-arrow {
+      width: 24px;
+      height: 24px;
+      border-right: 2px solid var(--pink-mid);
+      border-bottom: 2px solid var(--pink-mid);
+      transform: rotate(45deg);
+      animation: bounceArrow 1.5s ease-in-out infinite;
+    }
+
+    @keyframes bounceArrow {
+      0%, 100% { transform: rotate(45deg) translateY(0); }
+      50%       { transform: rotate(45deg) translateY(6px); }
+    }
+
+    /* ===================================================
+       ПОПАП ПОЗДРАВЛЕНИЯ при нажатии кнопки
+    =================================================== */
+    .congrats-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(60,20,60,0.55);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .congrats-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .congrats-modal {
+      background: linear-gradient(145deg, #fff0f5, #ede7fb);
+      border-radius: 28px;
+      padding: 52px 44px;
+      max-width: 540px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 24px 80px rgba(130,50,130,0.35);
+      transform: scale(0.7) translateY(40px);
+      transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    .congrats-overlay.active .congrats-modal {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-flowers {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      animation: floatFlower 2s ease-in-out infinite;
+    }
+
+    @keyframes floatFlower {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50%       { transform: translateY(-12px) rotate(5deg); }
+    }
+
+    .modal-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--pink-deep);
+      margin-bottom: 12px;
+    }
+
+    .modal-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      color: var(--text-mid);
+      line-height: 1.8;
+      margin-bottom: 28px;
+    }
+
+    /* Анимированное сердце в модале */
+    .modal-heart {
+      display: inline-block;
+      font-size: 3rem;
+      animation: heartbeat 1s ease-in-out infinite;
+      margin-bottom: 20px;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      25%       { transform: scale(1.18); }
+      50%       { transform: scale(1); }
+      75%       { transform: scale(1.12); }
+    }
+
+    .modal-close {
+      padding: 12px 32px;
+      border: 2px solid var(--pink-mid);
+      background: white;
+      border-radius: 50px;
+      color: var(--pink-deep);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-close:hover {
+      background: var(--pink-deep);
+      color: white;
+      border-color: var(--pink-deep);
+    }
+
+    /* Canvas для конфетти */
+    #confetti-canvas {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* ===================================================
+       ОБЩИЕ СТИЛИ СЕКЦИЙ
+    =================================================== */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-label {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--pink-mid);
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text-dark);
+      margin-bottom: 20px;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--pink-deep);
+    }
+
+    .section-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--text-mid);
+      line-height: 1.9;
+    }
+
+    /* Плавное появление при прокрутке */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===================================================
+       СЕКЦИЯ 2: МАМА
+    =================================================== */
+    .mama-section {
+      padding: 100px 0;
+      background: linear-gradient(180deg, var(--pink-pale) 0%, #fff8fb 100%);
+    }
+
+    .mama-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    /* Иллюстрация тюльпана слева */
+    .tulip-art {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .tulip-wrap {
+      position: relative;
+      width: 280px;
+      height: 320px;
+    }
+
+    /* SVG тюльпан */
+    .tulip-svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 12px 24px rgba(232,103,138,0.25));
+    }
+
+    /* Анимация "роста" тюльпана */
+    .tulip-stem-path {
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: growStem 2s ease forwards 0.5s;
+    }
+
+    @keyframes growStem {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .tulip-petal {
+      transform-origin: center bottom;
+      animation: openPetal 1.5s ease forwards;
+      opacity: 0;
+    }
+
+    .tulip-petal:nth-child(1) { animation-delay: 1.8s; }
+    .tulip-petal:nth-child(2) { animation-delay: 2s; }
+    .tulip-petal:nth-child(3) { animation-delay: 2.2s; }
+    .tulip-petal:nth-child(4) { animation-delay: 2.4s; }
+
+    @keyframes openPetal {
+      0%   { opacity: 0; transform: scale(0.2) rotate(-20deg); }
+      60%  { opacity: 1; transform: scale(1.05) rotate(5deg); }
+      100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+
+    /* Плавающие декоративные точки */
+    .deco-dots {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0; left: 0;
+      pointer-events: none;
+    }
+
+    .dot {
+      position: absolute;
+      border-radius: 50%;
+      animation: floatDot 4s ease-in-out infinite;
+    }
+
+    @keyframes floatDot {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-15px); }
+    }
+
+    .mama-text { }
+
+    .mama-card {
+      background: white;
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow-soft);
+      border: 1.5px solid rgba(232,103,138,0.12);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      margin-top: 28px;
+    }
+
+    .mama-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .mama-card p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: var(--text-mid);
+      line-height: 1.95;
+      margin-bottom: 16px;
+    }
+
+    .mama-card p:last-child { margin-bottom: 0; }
+
+    .tag-flowers {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+    }
+
+    .tag {
+      background: var(--pink-light);
+      color: var(--pink-deep);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      transition: background 0.3s ease;
+    }
+
+    .tag:hover { background: var(--pink-mid); color: white; }
+
+    /* ===================================================
+       СЕКЦИЯ 3: АЙБИКЕ
+    =================================================== */
+    .aybike-section {
+      padding: 100px 0;
+      background: linear-gradient(180deg, #f8f0ff 0%, #fff0f9 100%);
+    }
+
+    .aybike-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    /* Текст слева, иллюстрация справа */
+    .aybike-text { order: 1; }
+    .aybike-art  { order: 2; }
+
+    .aybike-card {
+      background: white;
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: var(--shadow-soft);
+      border: 1.5px solid rgba(181,123,238,0.15);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      margin-top: 28px;
+    }
+
+    .aybike-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(181,123,238,0.22);
+    }
+
+    .aybike-card p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      color: var(--text-mid);
+      line-height: 1.95;
+      margin-bottom: 16px;
+    }
+
+    .tag.violet {
+      background: var(--violet-light);
+      color: var(--violet-deep);
+    }
+
+    .tag.violet:hover { background: var(--violet-mid); color: white; }
+
+    /* Анимированный цветок для Айбике */
+    .flower-bloom {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .bloom-container {
+      position: relative;
+      width: 260px;
+      height: 260px;
+    }
+
+    .petal-ring {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: rotatePetalRing 8s linear infinite;
+    }
+
+    @keyframes rotatePetalRing {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .petal-item {
+      position: absolute;
+      width: 52px;
+      height: 90px;
+      border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+      background: linear-gradient(180deg, var(--violet-mid), var(--pink-mid));
+      opacity: 0.85;
+      transform-origin: center 130px;
+    }
+
+    /* 8 лепестков по кругу */
+    .petal-item:nth-child(1)  { transform: rotate(0deg); }
+    .petal-item:nth-child(2)  { transform: rotate(45deg); }
+    .petal-item:nth-child(3)  { transform: rotate(90deg); }
+    .petal-item:nth-child(4)  { transform: rotate(135deg); }
+    .petal-item:nth-child(5)  { transform: rotate(180deg); }
+    .petal-item:nth-child(6)  { transform: rotate(225deg); }
+    .petal-item:nth-child(7)  { transform: rotate(270deg); }
+    .petal-item:nth-child(8)  { transform: rotate(315deg); }
+
+    /* Центр цветка */
+    .flower-center {
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--gold), #f5a623);
+      box-shadow: 0 0 24px rgba(245,200,66,0.5);
+      z-index: 2;
+      animation: pulseCenter 2s ease-in-out infinite;
+    }
+
+    @keyframes pulseCenter {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 24px rgba(245,200,66,0.5); }
+      50%       { transform: scale(1.1); box-shadow: 0 0 36px rgba(245,200,66,0.7); }
+    }
+
+    /* ===================================================
+       СЕКЦИЯ 4: БЛАГОДАРНОСТЬ СЕМЬЕ
+    =================================================== */
+    .family-section {
+      padding: 100px 0;
+      background: linear-gradient(135deg, var(--green-pale) 0%, #fff8fb 50%, var(--violet-light) 100%);
+    }
+
+    .family-center { text-align: center; margin-bottom: 60px; }
+
+    .family-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .family-card {
+      background: white;
+      border-radius: 20px;
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: var(--shadow-soft);
+      border: 1.5px solid rgba(168,213,162,0.2);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .family-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--pink-deep), var(--violet-deep), var(--green-spring));
+    }
+
+    .family-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .family-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      display: block;
+      animation: floatIcon 3s ease-in-out infinite;
+    }
+
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    .family-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 12px;
+    }
+
+    .family-card p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      line-height: 1.8;
+    }
+
+    /* ===================================================
+       СЕКЦИЯ 5: ЦИТАТЫ
+    =================================================== */
+    .quotes-section {
+      padding: 100px 0;
+      background: linear-gradient(180deg, #fff8fb 0%, var(--violet-light) 50%, #fff8fb 100%);
+    }
+
+    .quotes-center { text-align: center; margin-bottom: 60px; }
+
+    .quotes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+
+    .quote-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px 36px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      border: 1.5px solid rgba(212,168,247,0.2);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .quote-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* Большая кавычка */
+    .quote-card::before {
+      content: '"';
+      position: absolute;
+      top: -10px;
+      left: 24px;
+      font-family: 'Playfair Display', serif;
+      font-size: 6rem;
+      color: var(--pink-light);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .quote-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--text-dark);
+      line-height: 1.85;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .quote-author {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--pink-deep);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .quote-author::before {
+      content: '';
+      display: block;
+      width: 30px;
+      height: 1.5px;
+      background: var(--pink-mid);
+    }
+
+    /* Большая featured цитата */
+    .quote-featured {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, var(--pink-deep), var(--violet-deep));
+      color: white;
+      border: none;
+    }
+
+    .quote-featured::before { color: rgba(255,255,255,0.2); }
+
+    .quote-featured .quote-text {
+      color: white;
+      font-size: 1.4rem;
+    }
+
+    .quote-featured .quote-author {
+      color: rgba(255,255,255,0.75);
+    }
+
+    .quote-featured .quote-author::before {
+      background: rgba(255,255,255,0.4);
+    }
+
+    /* ===================================================
+       СЕКЦИЯ 6: АНИМИРОВАННЫЕ ЦВЕТЫ (галерея)
+    =================================================== */
+    .flowers-section {
+      padding: 100px 0;
+      background: linear-gradient(180deg, var(--cream) 0%, var(--green-pale) 100%);
+      overflow: hidden;
+    }
+
+    .flowers-center { text-align: center; margin-bottom: 60px; }
+
+    .flowers-stage {
+      position: relative;
+      height: 360px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 0;
+    }
+
+    /* Отдельный CSS-тюльпан */
+    .css-tulip {
+      position: relative;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 16px;
+      animation: swayTulip 3s ease-in-out infinite;
+      transform-origin: center bottom;
+    }
+
+    .css-tulip:nth-child(1) { animation-delay: 0s;    --tulip-color1: #e8678a; --tulip-color2: #f4a0bc; }
+    .css-tulip:nth-child(2) { animation-delay: 0.4s;  --tulip-color1: #b57bee; --tulip-color2: #d4a8f7; }
+    .css-tulip:nth-child(3) { animation-delay: 0.8s;  --tulip-color1: #e8678a; --tulip-color2: #f4a0bc; }
+    .css-tulip:nth-child(4) { animation-delay: 0.2s;  --tulip-color1: #f5a623; --tulip-color2: #f7c873; }
+    .css-tulip:nth-child(5) { animation-delay: 0.6s;  --tulip-color1: #b57bee; --tulip-color2: #d4a8f7; }
+    .css-tulip:nth-child(6) { animation-delay: 1s;    --tulip-color1: #e8678a; --tulip-color2: #f4a0bc; }
+    .css-tulip:nth-child(7) { animation-delay: 0.3s;  --tulip-color1: #e04040; --tulip-color2: #f08080; }
+
+    @keyframes swayTulip {
+      0%, 100% { transform: rotate(-4deg); }
+      50%       { transform: rotate(4deg); }
+    }
+
+    /* Чашечка тюльпана (3 лепестка) */
+    .tulip-cup {
+      position: relative;
+      width: 56px;
+      height: 70px;
+      margin-bottom: -4px;
+    }
+
+    .tulip-petal-l,
+    .tulip-petal-r,
+    .tulip-petal-c {
+      position: absolute;
+      width: 32px;
+      height: 55px;
+      border-radius: 50% 50% 30% 30%;
+      bottom: 0;
+    }
+
+    .tulip-petal-l {
+      left: 0;
+      background: linear-gradient(180deg, var(--tulip-color1), var(--tulip-color2));
+      transform: rotate(-20deg);
+      transform-origin: bottom center;
+    }
+
+    .tulip-petal-r {
+      right: 0;
+      background: linear-gradient(180deg, var(--tulip-color1), var(--tulip-color2));
+      transform: rotate(20deg);
+      transform-origin: bottom center;
+    }
+
+    .tulip-petal-c {
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(180deg, var(--tulip-color2), var(--tulip-color1));
+      height: 60px;
+    }
+
+    /* Стебель */
+    .tulip-stem-css {
+      width: 5px;
+      background: linear-gradient(180deg, #6db46a, #a8d5a2);
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+
+    /* Листочек */
+    .tulip-leaf {
+      position: absolute;
+      width: 28px;
+      height: 14px;
+      background: linear-gradient(135deg, #6db46a, #a8d5a2);
+      border-radius: 50%;
+      top: 40px;
+      transform-origin: left center;
+    }
+
+    .tulip-leaf-l {
+      right: 100%;
+      transform: rotate(-35deg);
+    }
+
+    .tulip-leaf-r {
+      left: 100%;
+      transform: rotate(35deg);
+    }
+
+    /* ===================================================
+       СЕКЦИЯ 7: ФИНАЛЬНАЯ / ПОДПИСЬ
+    =================================================== */
+    .final-section {
+      padding: 120px 0 80px;
+      background: linear-gradient(
+        135deg,
+        #fff0f5 0%,
+        var(--violet-light) 50%,
+        var(--green-pale) 100%
+      );
+      text-align: center;
+    }
+
+    .final-hearts {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .heart-item {
+      font-size: 2rem;
+      animation: heartbeat 1s ease-in-out infinite;
+    }
+
+    .heart-item:nth-child(1) { animation-delay: 0s; }
+    .heart-item:nth-child(2) { animation-delay: 0.2s; font-size: 2.6rem; }
+    .heart-item:nth-child(3) { animation-delay: 0.4s; }
+
+    .final-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      color: var(--pink-deep);
+      margin-bottom: 20px;
+    }
+
+    .final-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-style: italic;
+      color: var(--text-mid);
+      margin-bottom: 48px;
+    }
+
+    /* Подпись "С любовью" */
+    .signature {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: white;
+      border-radius: 50px;
+      padding: 16px 40px;
+      box-shadow: var(--shadow-soft);
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.8rem;
+      color: var(--text-dark);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .signature:hover {
+      transform: translateY(-4px) scale(1.04);
+      box-shadow: var(--shadow-hover);
+    }
+
+    /* Горизонтальный ряд маленьких цветков */
+    .petal-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 48px;
+      font-size: 1.4rem;
+    }
+
+    .petal-row span {
+      animation: floatIcon 3s ease-in-out infinite;
+    }
+
+    .petal-row span:nth-child(odd)  { animation-delay: 0.3s; }
+    .petal-row span:nth-child(even) { animation-delay: 0.7s; }
+
+    /* ===================================================
+       ОБЩИЕ УТИЛИТЫ И АНИМАЦИИ
+    =================================================== */
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* Декоративный волнообразный разделитель между секциями */
+    .wave-sep {
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+    }
+
+    .wave-sep svg {
+      display: block;
+      width: 100%;
+    }
+
+    /* ===================================================
+       АДАПТИВНОСТЬ — мобильные экраны
+    =================================================== */
+    @media (max-width: 768px) {
+      .mama-inner,
+      .aybike-inner {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .aybike-text { order: 1; }
+      .aybike-art  { order: 2; }
+
+      .family-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .quotes-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .flowers-stage {
+        height: 280px;
+        gap: 0;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 0 20px;
+      }
+
+      .css-tulip {
+        margin: 0 8px;
+        flex-shrink: 0;
+      }
+
+      .tulip-art,
+      .flower-bloom {
+        display: none;
+      }
+
+      .mama-inner,
+      .aybike-inner {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title { font-size: 3rem; }
+      .container  { padding: 0 16px; }
+      .mama-card,
+      .aybike-card { padding: 28px 20px; }
+    }
+
+    /* ===================================================
+       ПЛАВНАЯ ПОЛОСКА ПРОГРЕССА ПРОКРУТКИ
+    =================================================== */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--pink-deep), var(--violet-deep), var(--green-spring));
+      z-index: 9999;
+      transition: width 0.1s linear;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- =============================================
+       ПОЛОСКА ПРОГРЕССА ПРОКРУТКИ
+  ============================================= -->
+  <div id="scroll-progress"></div>
+
+  <!-- =============================================
+       ФОНОВЫЙ CANVAS С ЛЕТЯЩИМИ ЛЕПЕСТКАМИ
+  ============================================= -->
+  <canvas id="petal-canvas"></canvas>
+
+  <!-- =============================================
+       CANVAS ДЛЯ КОНФЕТТИ (попап)
+  ============================================= -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- =============================================
+       ПОПАП ПОЗДРАВЛЕНИЯ
+  ============================================= -->
+  <div class="congrats-overlay" id="congratsOverlay">
+    <div class="congrats-modal">
+      <div class="modal-flowers">🌷🌸🌺</div>
+      <div class="modal-title">С 8 Марта!</div>
+      <div class="modal-heart">❤️</div>
+      <p class="modal-text">
+        Дорогие мама и Айбике!<br>
+        Пусть этот весенний день принесёт вам<br>
+        бесконечную радость, тепло и любовь.<br>
+        Вы — самые лучшие на свете! 🌸
+      </p>
+      <button class="modal-close" onclick="closeModal()">Закрыть ✨</button>
+    </div>
+  </div>
+
+  <!-- =============================================
+       СЕКЦИЯ 1: HERO
+  ============================================= -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+
+      <!-- Декоративная дата -->
+      <span class="hero-date">8 марта · Международный женский день</span>
+
+      <!-- Главный заголовок -->
+      <h1 class="hero-title">С 8 Марта!</h1>
+
+      <!-- Подзаголовок -->
+      <p class="hero-subtitle">
+        Маме и <span>Айбике</span>
+      </p>
+
+      <!-- Декоративный разделитель -->
+      <div class="hero-divider">
+        <span class="hero-flower-icon">🌷</span>
+      </div>
+
+      <!-- Вступительный текст -->
+      <p class="hero-intro">
+        Этот сайт создан с любовью и нежностью для самых
+        дорогих людей в моей жизни. Пусть каждый день будет
+        наполнен улыбками, теплом и цветами!
+      </p>
+
+      <!-- Кнопка поздравления -->
+      <button class="btn-celebrate" onclick="openModal()">
+        🎉 Нажми для поздравления
+      </button>
+
+    </div>
+
+    <!-- Подсказка прокрутки -->
+    <div class="scroll-hint">
+      <span>листай вниз</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- Волнообразный разделитель -->
+  <div class="wave-sep">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#fff0f5"/>
+    </svg>
+  </div>
+
+  <!-- =============================================
+       СЕКЦИЯ 2: МАМА
+  ============================================= -->
+  <section class="mama-section" id="mama">
+    <div class="container">
+      <div class="mama-inner">
+
+        <!-- Иллюстрация с тюльпаном -->
+        <div class="tulip-art reveal">
+          <div class="tulip-wrap">
+
+            <!-- SVG тюльпан -->
+            <svg class="tulip-svg" viewBox="0 0 280 320" xmlns="http://www.w3.org/2000/svg">
+              <!-- Определения градиентов -->
+              <defs>
+                <linearGradient id="stemGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#6db46a"/>
+                  <stop offset="100%" stop-color="#a8d5a2"/>
+                </linearGradient>
+                <linearGradient id="petalPinkL" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#e8678a"/>
+                  <stop offset="100%" stop-color="#f4a0bc"/>
+                </linearGradient>
+                <linearGradient id="petalPinkR" x1="1" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#d94f7a"/>
+                  <stop offset="100%" stop-color="#f4a0bc"/>
+                </linearGradient>
+                <linearGradient id="petalPinkC" x1="0.5" y1="0" x2="0.5" y2="1">
+                  <stop offset="0%" stop-color="#f4a0bc"/>
+                  <stop offset="100%" stop-color="#e8678a"/>
+                </linearGradient>
+                <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#5aa355"/>
+                  <stop offset="100%" stop-color="#a8d5a2"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Стебель -->
+              <path class="tulip-stem-path"
+                    d="M140 300 C140 260 135 220 138 160"
+                    stroke="url(#stemGrad)"
+                    stroke-width="7"
+                    fill="none"
+                    stroke-linecap="round"/>
+
+              <!-- Листья -->
+              <path class="tulip-petal"
+                    d="M138 200 C110 195 90 170 100 155 C115 168 132 190 138 200Z"
+                    fill="url(#leafGrad)"/>
+              <path class="tulip-petal"
+                    d="M140 230 C165 220 188 200 178 185 C162 198 145 218 140 230Z"
+                    fill="url(#leafGrad)"/>
+
+              <!-- Лепестки тюльпана -->
+              <!-- Левый лепесток -->
+              <path class="tulip-petal"
+                    d="M138 165 C118 155 100 130 108 105 C120 85 138 100 140 120 C140 100 155 80 168 98 C178 118 165 148 145 162 Z"
+                    fill="url(#petalPinkL)"/>
+              <!-- Правый лепесток -->
+              <path class="tulip-petal"
+                    d="M142 165 C162 152 182 128 174 102 C165 80 148 92 142 112 C140 92 126 78 115 96 C105 118 120 148 140 162 Z"
+                    fill="url(#petalPinkR)"/>
+              <!-- Центральный лепесток -->
+              <path class="tulip-petal"
+                    d="M140 158 C128 145 122 118 128 98 C132 82 140 78 140 78 C140 78 148 82 152 98 C158 118 152 145 140 158Z"
+                    fill="url(#petalPinkC)"/>
+
+              <!-- Декоративные точечки-блики -->
+              <circle cx="130" cy="110" r="4" fill="rgba(255,255,255,0.4)"/>
+              <circle cx="150" cy="95"  r="3" fill="rgba(255,255,255,0.3)"/>
+              <circle cx="140" cy="130" r="2.5" fill="rgba(255,255,255,0.35)"/>
+            </svg>
+
+            <!-- Плавающие декоративные элементы вокруг тюльпана -->
+            <div class="deco-dots">
+              <div class="dot" style="width:10px;height:10px;background:var(--pink-mid);top:10%;left:10%;animation-delay:0s;opacity:.5;"></div>
+              <div class="dot" style="width:7px;height:7px;background:var(--violet-mid);top:20%;right:12%;animation-delay:0.5s;opacity:.6;"></div>
+              <div class="dot" style="width:12px;height:12px;background:var(--pink-light);top:70%;left:8%;animation-delay:1s;opacity:.45;"></div>
+              <div class="dot" style="width:8px;height:8px;background:var(--green-spring);top:60%;right:8%;animation-delay:1.5s;opacity:.5;"></div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Текст поздравления маме -->
+        <div class="mama-text reveal">
+          <span class="section-label">💖 Поздравление</span>
+          <h2 class="section-title">Дорогая <em>Мама</em></h2>
+          <p class="section-desc">
+            Самый важный человек в моей жизни — это ты.
+            Твоя любовь согревает меня в любую погоду.
+          </p>
+
+          <div class="mama-card">
+            <p>
+              Мамочка, в этот весенний праздник я хочу сказать тебе огромное
+              «спасибо» за всё, что ты делаешь для нашей семьи каждый день.
+              Твоя любовь — это самый ценный подарок в моей жизни.
+            </p>
+            <p>
+              Ты — воплощение доброты, заботы и силы. Когда мне трудно,
+              твой голос всегда возвращает мне уверенность. Ты умеешь
+              делать наш дом настоящим тёплым гнёздышком, где всегда
+              пахнет чем-то вкусным и звучит смех.
+            </p>
+            <p>
+              Пусть этот день будет наполнен цветами и улыбками.
+              Пусть всё, о чём ты мечтаешь, обязательно сбудется!
+              Желаю тебе здоровья, радости и бесконечного счастья. 🌷
+            </p>
+
+            <div class="tag-flowers">
+              <span class="tag">🌷 Любовь</span>
+              <span class="tag">💫 Забота</span>
+              <span class="tag">🌸 Тепло</span>
+              <span class="tag">✨ Счастье</span>
+              <span class="tag">💖 Здоровье</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Волнообразный разделитель -->
+  <div class="wave-sep">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,20 C480,60 960,0 1440,40 L1440,60 L0,60 Z" fill="#f8f0ff"/>
+    </svg>
+  </div>
+
+  <!-- =============================================
+       СЕКЦИЯ 3: АЙБИКЕ
+  ============================================= -->
+  <section class="aybike-section" id="aybike">
+    <div class="container">
+      <div class="aybike-inner">
+
+        <!-- Текст поздравления Айбике -->
+        <div class="aybike-text reveal">
+          <span class="section-label">🌸 Поздравление</span>
+          <h2 class="section-title">Любимая сестрёнка <em>Айбике</em></h2>
+          <p class="section-desc">
+            Ты — маленькое солнышко, которое освещает нашу жизнь
+            своей улыбкой и смехом каждый день.
+          </p>
+
+          <div class="aybike-card">
+            <p>
+              Дорогая Айбике! Сегодня — твой праздник, и я хочу,
+              чтобы ты знала: ты — самая лучшая сестрёнка на свете!
+              Твой смех — моя любимая мелодия.
+            </p>
+            <p>
+              Ты такая весёлая, добрая и талантливая. С тобой любое
+              скучное занятие превращается в приключение. Я горжусь
+              тем, как ты растёшь и становишься замечательным человеком.
+            </p>
+            <p>
+              Желаю тебе всегда оставаться такой же яркой и жизнерадостной.
+              Пусть твои мечты исполняются одна за другой, а жизнь будет
+              похожа на сказку — с волшебством на каждой странице! 🌺
+            </p>
+
+            <div class="tag-flowers">
+              <span class="tag violet">💜 Радость</span>
+              <span class="tag violet">🌺 Улыбки</span>
+              <span class="tag violet">⭐ Мечты</span>
+              <span class="tag violet">🦋 Красота</span>
+              <span class="tag violet">🌟 Успех</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Анимированный цветок для Айбике -->
+        <div class="aybike-art reveal">
+          <div class="flower-bloom">
+            <div class="bloom-container">
+
+              <!-- Вращающееся кольцо лепестков -->
+              <div class="petal-ring">
+                <div class="petal-item"></div>
+                <div class="petal-item"></div>
+                <div class="petal-item"></div>
+                <div class="petal-item"></div>
+                <div class="petal-item"></div>
+                <div class="petal-item"></div>
+                <div class="petal-item"></div>
+                <div class="petal-item"></div>
+              </div>
+
+              <!-- Центр цветка -->
+              <div class="flower-center"></div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Волнообразный разделитель -->
+  <div class="wave-sep">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,40 C360,0 1080,60 1440,20 L1440,60 L0,60 Z" fill="#eaf8ea"/>
+    </svg>
+  </div>
+
+  <!-- =============================================
+       СЕКЦИЯ 4: БЛАГОДАРНОСТЬ СЕМЬЕ
+  ============================================= -->
+  <section class="family-section" id="family">
+    <div class="container">
+      <div class="family-center reveal">
+        <span class="section-label">🏡 Наша семья</span>
+        <h2 class="section-title">Спасибо за всё, <em>родные!</em></h2>
+        <p class="section-desc" style="max-width:560px;margin:0 auto;">
+          Семья — это место, где всегда рады. Это тепло, поддержка
+          и безусловная любовь. Я благодарен каждому из вас.
+        </p>
+      </div>
+
+      <div class="family-grid">
+
+        <!-- Карточка 1 -->
+        <div class="family-card reveal">
+          <span class="family-icon">🌷</span>
+          <h3>Тепло и уют</h3>
+          <p>
+            Вы создаёте в нашем доме атмосферу настоящего тепла.
+            Каждый уголок дома пропитан вашей заботой и любовью.
+          </p>
+        </div>
+
+        <!-- Карточка 2 -->
+        <div class="family-card reveal">
+          <span class="family-icon">💪</span>
+          <h3>Сила и поддержка</h3>
+          <p>
+            В трудные моменты вы всегда рядом. Ваша поддержка
+            даёт мне силы двигаться вперёд и не бояться трудностей.
+          </p>
+        </div>
+
+        <!-- Карточка 3 -->
+        <div class="family-card reveal">
+          <span class="family-icon">😄</span>
+          <h3>Радость и смех</h3>
+          <p>
+            С вами каждый день наполнен радостью. Ваш смех —
+            самая лучшая музыка для моей души.
+          </p>
+        </div>
+
+        <!-- Карточка 4 -->
+        <div class="family-card reveal">
+          <span class="family-icon">🌟</span>
+          <h3>Вдохновение</h3>
+          <p>
+            Вы вдохновляете меня становиться лучше. Ваш пример
+            учит меня быть добрым, сильным и целеустремлённым.
+          </p>
+        </div>
+
+        <!-- Карточка 5 -->
+        <div class="family-card reveal">
+          <span class="family-icon">🌺</span>
+          <h3>Красота и нежность</h3>
+          <p>
+            Вы привносите в нашу жизнь красоту. Ваша нежность
+            и мягкость делают наш мир светлее и добрее.
+          </p>
+        </div>
+
+        <!-- Карточка 6 -->
+        <div class="family-card reveal">
+          <span class="family-icon">💖</span>
+          <h3>Безусловная любовь</h3>
+          <p>
+            Ваша любовь не требует условий. Именно это делает
+            нашу семью самой крепкой и счастливой на свете.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Волнообразный разделитель -->
+  <div class="wave-sep">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,30 C720,60 1080,0 1440,30 L1440,60 L0,60 Z" fill="#f8f0ff"/>
+    </svg>
+  </div>
+
+  <!-- =============================================
+       СЕКЦИЯ 5: ЦИТАТЫ
+  ============================================= -->
+  <section class="quotes-section" id="quotes">
+    <div class="container">
+      <div class="quotes-center reveal">
+        <span class="section-label">✨ Мудрые слова</span>
+        <h2 class="section-title">Цитаты о маме <em>и семье</em></h2>
+      </div>
+
+      <div class="quotes-grid">
+
+        <!-- Featured цитата -->
+        <div class="quote-card quote-featured reveal">
+          <p class="quote-text">
+            Мама — это имя Бога на устах и в сердцах маленьких детей.
+            Её любовь — единственная любовь, которая по-настоящему
+            бескорыстна и вечна.
+          </p>
+          <span class="quote-author">Народная мудрость</span>
+        </div>
+
+        <!-- Цитата 1 -->
+        <div class="quote-card reveal">
+          <p class="quote-text">
+            Материнская любовь — это мир, из которого вышло всё.
+            В её тепле мы растём и расцветаем.
+          </p>
+          <span class="quote-author">Эрих Фромм</span>
+        </div>
+
+        <!-- Цитата 2 -->
+        <div class="quote-card reveal">
+          <p class="quote-text">
+            Счастлив тот, кто счастлив у себя дома.
+            Семья — это якотерь, который держит нас в самые бурные времена.
+          </p>
+          <span class="quote-author">Лев Толстой</span>
+        </div>
+
+        <!-- Цитата 3 -->
+        <div class="quote-card reveal">
+          <p class="quote-text">
+            Женщина — это цветок весны, тепло лета, плодородие осени
+            и уют зимы. В ней — все времена года сразу.
+          </p>
+          <span class="quote-author">Восточная мудрость</span>
+        </div>
+
+        <!-- Цитата 4 -->
+        <div class="quote-card reveal">
+          <p class="quote-text">
+            Быть сестрой — значит иметь лучшую подругу на всю жизнь.
+            Это тот человек, который знает тебя лучше всех.
+          </p>
+          <span class="quote-author">Неизвестный автор</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Волнообразный разделитель -->
+  <div class="wave-sep">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,10 C360,50 1080,10 1440,50 L1440,60 L0,60 Z" fill="#f5fff5"/>
+    </svg>
+  </div>
+
+  <!-- =============================================
+       СЕКЦИЯ 6: АНИМИРОВАННЫЕ ЦВЕТЫ
+  ============================================= -->
+  <section class="flowers-section" id="flowers">
+    <div class="container">
+      <div class="flowers-center reveal">
+        <span class="section-label">🌷 Весенний сад</span>
+        <h2 class="section-title">Цветы для <em>любимых</em></h2>
+        <p class="section-desc" style="max-width:500px;margin:0 auto;">
+          Каждый цветок — это маленькое солнышко. Пусть ваша жизнь
+          будет таким же ярким и цветущим садом!
+        </p>
+      </div>
+    </div>
+
+    <!-- Сцена с тюльпанами на всю ширину -->
+    <div class="flowers-stage">
+
+      <!-- 7 CSS-тюльпанов разной высоты -->
+
+      <!-- Тюльпан 1 — розовый, маленький -->
+      <div class="css-tulip" style="--h:140px">
+        <div class="tulip-cup">
+          <div class="tulip-petal-l"></div>
+          <div class="tulip-petal-r"></div>
+          <div class="tulip-petal-c"></div>
+        </div>
+        <div class="tulip-stem-css" style="height:140px;position:relative;">
+          <div class="tulip-leaf tulip-leaf-l"></div>
+        </div>
+      </div>
+
+      <!-- Тюльпан 2 — фиолетовый, средний -->
+      <div class="css-tulip" style="--h:190px">
+        <div class="tulip-cup">
+          <div class="tulip-petal-l"></div>
+          <div class="tulip-petal-r"></div>
+          <div class="tulip-petal-c"></div>
+        </div>
+        <div class="tulip-stem-css" style="height:190px;position:relative;">
+          <div class="tulip-leaf tulip-leaf-r"></div>
+        </div>
+      </div>
+
+      <!-- Тюльпан 3 — розовый, высокий -->
+      <div class="css-tulip" style="--h:220px">
+        <div class="tulip-cup">
+          <div class="tulip-petal-l"></div>
+          <div class="tulip-petal-r"></div>
+          <div class="tulip-petal-c"></div>
+        </div>
+        <div class="tulip-stem-css" style="height:220px;position:relative;">
+          <div class="tulip-leaf tulip-leaf-l"></div>
+          <div class="tulip-leaf tulip-leaf-r" style="top:80px;"></div>
+        </div>
+      </div>
+
+      <!-- Тюльпан 4 — жёлтый, средний -->
+      <div class="css-tulip" style="--h:170px">
+        <div class="tulip-cup">
+          <div class="tulip-petal-l"></div>
+          <div class="tulip-petal-r"></div>
+          <div class="tulip-petal-c"></div>
+        </div>
+        <div class="tulip-stem-css" style="height:170px;position:relative;">
+          <div class="tulip-leaf tulip-leaf-r"></div>
+        </div>
+      </div>
+
+      <!-- Тюльпан 5 — фиолетовый, самый высокий -->
+      <div class="css-tulip" style="--h:250px">
+        <div class="tulip-cup">
+          <div class="tulip-petal-l"></div>
+          <div class="tulip-petal-r"></div>
+          <div class="tulip-petal-c"></div>
+        </div>
+        <div class="tulip-stem-css" style="height:250px;position:relative;">
+          <div class="tulip-leaf tulip-leaf-l"></div>
+          <div class="tulip-leaf tulip-leaf-r" style="top:100px;"></div>
+        </div>
+      </div>
+
+      <!-- Тюльпан 6 — розовый, средний -->
+      <div class="css-tulip" style="--h:180px">
+        <div class="tulip-cup">
+          <div class="tulip-petal-l"></div>
+          <div class="tulip-petal-r"></div>
+          <div class="tulip-petal-c"></div>
+        </div>
+        <div class="tulip-stem-css" style="height:180px;position:relative;">
+          <div class="tulip-leaf tulip-leaf-l"></div>
+        </div>
+      </div>
+
+      <!-- Тюльпан 7 — красный, небольшой -->
+      <div class="css-tulip" style="--h:150px">
+        <div class="tulip-cup">
+          <div class="tulip-petal-l"></div>
+          <div class="tulip-petal-r"></div>
+          <div class="tulip-petal-c"></div>
+        </div>
+        <div class="tulip-stem-css" style="height:150px;position:relative;">
+          <div class="tulip-leaf tulip-leaf-r"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Волнообразный разделитель -->
+  <div class="wave-sep">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,50 C480,10 960,50 1440,10 L1440,60 L0,60 Z" fill="#fff0f5"/>
+    </svg>
+  </div>
+
+  <!-- =============================================
+       СЕКЦИЯ 7: ФИНАЛ / ПОДПИСЬ
+  ============================================= -->
+  <section class="final-section" id="final">
+    <div class="container">
+
+      <!-- Сердечки -->
+      <div class="final-hearts reveal">
+        <span class="heart-item">🩷</span>
+        <span class="heart-item">❤️</span>
+        <span class="heart-item">💜</span>
+      </div>
+
+      <!-- Финальный заголовок -->
+      <h2 class="final-title reveal">Поздравляем вас!</h2>
+
+      <p class="final-subtitle reveal">
+        Мама и Айбике — вы делаете нашу семью полной и счастливой.
+        <br>Этот сайт создан с любовью, специально для вас. 🌸
+      </p>
+
+      <!-- Подпись -->
+      <div class="reveal">
+        <div class="signature">
+          С любовью <span>❤️</span>
+        </div>
+      </div>
+
+      <!-- Ряд цветочков-эмодзи -->
+      <div class="petal-row reveal">
+        <span>🌷</span>
+        <span>🌸</span>
+        <span>🌺</span>
+        <span>🌻</span>
+        <span>🌼</span>
+        <span>💐</span>
+        <span>🌹</span>
+        <span>🌷</span>
+        <span>🌸</span>
+        <span>🌺</span>
+        <span>🌻</span>
+        <span>🌼</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =============================================
+       JAVASCRIPT
+  ============================================= -->
+  <script>
+    /* ===================================================
+       1. ЛЕПЕСТКИ НА ФОНЕ (canvas анимация)
+    =================================================== */
+    (function() {
+      const canvas = document.getElementById('petal-canvas');
+      const ctx    = canvas.getContext('2d');
+      let W, H;
+      const PETAL_COUNT = 38;
+      const petals = [];
+
+      /* Цвета лепестков */
+      const colors = [
+        'rgba(244,160,188,0.6)',
+        'rgba(212,168,247,0.55)',
+        'rgba(232,103,138,0.5)',
+        'rgba(168,213,162,0.45)',
+        'rgba(252,228,236,0.7)',
+        'rgba(237,231,251,0.65)',
+        'rgba(245,200,66,0.35)',
+      ];
+
+      function resize() {
+        W = canvas.width  = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      }
+
+      /* Создание одного лепестка */
+      function createPetal(y) {
+        return {
+          x:     Math.random() * W,
+          y:     y !== undefined ? y : Math.random() * H,
+          r:     6 + Math.random() * 12,    /* радиус */
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speedX: -0.5 + Math.random() * 1.2,
+          speedY: 0.5 + Math.random() * 1.4,
+          rot:   Math.random() * Math.PI * 2,
+          rotSpeed: (-0.02 + Math.random() * 0.04),
+          osc:   Math.random() * Math.PI * 2,  /* фаза колебания */
+          oscSpeed: 0.01 + Math.random() * 0.02,
+        };
+      }
+
+      /* Рисование одного лепестка (эллипс) */
+      function drawPetal(p) {
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.scale(1, 0.55);
+        ctx.beginPath();
+        ctx.ellipse(0, 0, p.r, p.r * 1.7, 0, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        ctx.restore();
+      }
+
+      /* Инициализация */
+      function init() {
+        resize();
+        for (let i = 0; i < PETAL_COUNT; i++) {
+          petals.push(createPetal());
+        }
+      }
+
+      /* Цикл анимации */
+      function animate() {
+        ctx.clearRect(0, 0, W, H);
+        for (const p of petals) {
+          p.osc += p.oscSpeed;
+          p.x   += p.speedX + Math.sin(p.osc) * 0.7;
+          p.y   += p.speedY;
+          p.rot += p.rotSpeed;
+
+          /* Возврат наверх если улетел вниз */
+          if (p.y > H + 30)  { Object.assign(p, createPetal(-20)); }
+          if (p.x > W + 30)  { p.x = -20; }
+          if (p.x < -30)     { p.x = W + 20; }
+
+          drawPetal(p);
+        }
+        requestAnimationFrame(animate);
+      }
+
+      window.addEventListener('resize', resize);
+      init();
+      animate();
+    })();
+
+
+    /* ===================================================
+       2. КОНФЕТТИ (при открытии попапа)
+    =================================================== */
+    const confettiCanvas = document.getElementById('confetti-canvas');
+    const confCtx        = confettiCanvas.getContext('2d');
+    let confettiActive   = false;
+    let confPieces       = [];
+
+    function resizeConfetti() {
+      confettiCanvas.width  = window.innerWidth;
+      confettiCanvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeConfetti);
+    resizeConfetti();
+
+    const confColors = [
+      '#e8678a','#f4a0bc','#b57bee','#d4a8f7',
+      '#f5c842','#a8d5a2','#fce4ec','#ede7fb'
+    ];
+
+    function spawnConfetti() {
+      confPieces = [];
+      for (let i = 0; i < 180; i++) {
+        confPieces.push({
+          x:  Math.random() * confettiCanvas.width,
+          y:  -20 - Math.random() * confettiCanvas.height * 0.5,
+          w:  6  + Math.random() * 10,
+          h:  4  + Math.random() * 8,
+          color: confColors[Math.floor(Math.random() * confColors.length)],
+          speedY: 2 + Math.random() * 4,
+          speedX: -1.5 + Math.random() * 3,
+          rot:    Math.random() * Math.PI * 2,
+          rotSpeed: -0.05 + Math.random() * 0.1,
+          life:   1.0,
+          decay:  0.003 + Math.random() * 0.005,
+        });
+      }
+    }
+
+    function animateConfetti() {
+      if (!confettiActive) {
+        confCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+        return;
+      }
+      confCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      let alive = 0;
+      for (const c of confPieces) {
+        c.y     += c.speedY;
+        c.x     += c.speedX;
+        c.rot   += c.rotSpeed;
+        c.life  -= c.decay;
+        if (c.life <= 0) continue;
+        alive++;
+        confCtx.save();
+        confCtx.globalAlpha = c.life;
+        confCtx.translate(c.x, c.y);
+        confCtx.rotate(c.rot);
+        confCtx.fillStyle = c.color;
+        confCtx.fillRect(-c.w / 2, -c.h / 2, c.w, c.h);
+        confCtx.restore();
+      }
+      if (alive > 0) {
+        requestAnimationFrame(animateConfetti);
+      } else {
+        confettiActive = false;
+        confCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+      }
+    }
+
+
+    /* ===================================================
+       3. ОТКРЫТИЕ / ЗАКРЫТИЕ ПОПАПА
+    =================================================== */
+    function openModal() {
+      const overlay = document.getElementById('congratsOverlay');
+      overlay.classList.add('active');
+      /* Запускаем конфетти */
+      confettiActive = true;
+      spawnConfetti();
+      animateConfetti();
+    }
+
+    function closeModal() {
+      document.getElementById('congratsOverlay').classList.remove('active');
+    }
+
+    /* Закрыть по клику вне модала */
+    document.getElementById('congratsOverlay').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+
+
+    /* ===================================================
+       4. REVEAL-АНИМАЦИИ ПРИ ПРОКРУТКЕ (IntersectionObserver)
+    =================================================== */
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            /* Задержка для карточек в сетке */
+            const siblings = entry.target.parentElement
+              ? Array.from(entry.target.parentElement.querySelectorAll('.reveal'))
+              : [];
+            const idx = siblings.indexOf(entry.target);
+            entry.target.style.transitionDelay = (idx * 0.08) + 's';
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    revealEls.forEach(el => revealObserver.observe(el));
+
+
+    /* ===================================================
+       5. ПОЛОСКА ПРОГРЕССА ПРОКРУТКИ
+    =================================================== */
+    window.addEventListener('scroll', () => {
+      const scrollTop  = window.scrollY;
+      const docHeight  = document.documentElement.scrollHeight - window.innerHeight;
+      const progress   = (scrollTop / docHeight) * 100;
+      document.getElementById('scroll-progress').style.width = progress + '%';
+    });
+
+
+    /* ===================================================
+       6. ПАРАЛЛАКС ДЛЯ HERO (лёгкое движение при скролле)
+    =================================================== */
+    window.addEventListener('scroll', () => {
+      const hero    = document.querySelector('.hero');
+      const scrollY = window.scrollY;
+      /* Только пока hero виден */
+      if (scrollY < window.innerHeight) {
+        hero.style.backgroundPositionY = (scrollY * 0.35) + 'px';
+      }
+    });
+
+
+    /* ===================================================
+       7. ИНТЕРАКТИВНЫЕ ЛЕПЕСТКИ ПРИ ДВИЖЕНИИ МЫШИ
+       (небольшой эффект притяжения к курсору)
+    =================================================== */
+    document.addEventListener('mousemove', (e) => {
+      /* При движении мышки по hero добавляем лёгкий parallax тексту */
+      const hero    = document.querySelector('.hero-content');
+      const centerX = window.innerWidth  / 2;
+      const centerY = window.innerHeight / 2;
+      const dx = (e.clientX - centerX) / centerX;
+      const dy = (e.clientY - centerY) / centerY;
+      hero.style.transform = `translate(${dx * 8}px, ${dy * 5}px)`;
+    });
+
+  </script>
+
+</body>
+</html>
